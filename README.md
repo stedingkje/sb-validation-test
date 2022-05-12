@@ -1,25 +1,27 @@
-# Next.js + Jest
+# Validation of data schema
 
-This example shows how to configure Jest to work with Next.js.
+This example shows how to configure data received through an api.
 
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript.
+Project details
+- Nextjs
+- Material UI
+- Typescript
+- Jest 
+- ZOD (validation lib)
 
 ## How to Use
 
-Quickly get started using [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app#readme)!
-
-In your terminal, run the following command:
-
 ```bash
-npx create-next-app --example with-jest with-jest-app
-# or
-yarn create next-app --example with-jest with-jest-app
-# or
-pnpm create next-app -- --example with-jest with-jest-app
+yarn dev
 ```
+
+Navigate to localhost:3000/persons for wrongly received data which shows the error message
+Navigate to localhost:3000/cars for correct data displayed in table
+Navigate to localhost:3000/bar for correct data displayed in table
+
 
 ## Run Jest Tests
+Not really created any tests for now. 
 
-```bash
-npm test
-```
+## Sidenode
+Project is by far finished but I hope you get the idea on how to manage these data my ideas behind them.
