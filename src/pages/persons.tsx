@@ -1,12 +1,27 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { GetStaticProps } from 'next';
 import { Box, Container } from '@mui/material';
 import * as React from 'react';
-import { Person, ErrorMessage } from '../types';
+import {Person, ErrorMessages} from '../types';
 import { Table } from '../components';
 
-const Persons = (data: Person[] | ErrorMessage): ReactElement<unknown> => {
-  const datas = data?.data;
+export type PersonWrapper = {
+    type: 'person',
+    person: Person[]
+}
+
+export type ErrorMessageWrapper = {
+    type: 'error-message',
+    error: ErrorMessages
+}
+
+export type Response = PersonWrapper | ErrorMessageWrapper
+
+export type PersonsProps = {
+    response: Response;
+};
+
+const Persons: FC<PersonsProps> = (data) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -19,21 +34,27 @@ const Persons = (data: Person[] | ErrorMessage): ReactElement<unknown> => {
         }}
       ></Box>
       Persons
-      {datas.issues &&
-        datas.issues.map((error: any) => <li>{error.message}</li>)}
-      {!datas.issues && <Table person={data} />}
+       {data.response.type === 'error-message' &&
+          data.response.error.issues.map((error) => <li>{error.message}</li>)}
+        {data.response.type === 'person' && <Table person={data.response.person} />}
     </Container>
   );
 };
 
 export default Persons;
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3000/api/person`);
-  const data = await res.json();
-  console.log(data);
-  if (!data) {
-    return { notFound: true };
+  let response:Response;
+  let json = await res.json()
+
+    if(res.status === 200) {
+        response = {type: 'person', person: json}
+  } else {
+        response = {type: 'error-message', error: json}
   }
-  return { props: { data } };
+
+  return { props: { response } };
 };
+
+

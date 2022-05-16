@@ -1,11 +1,15 @@
-import { ReactElement } from 'react'
+import {FC} from 'react'
 import {GetStaticProps} from 'next'
 import {Box, Container} from "@mui/material";
 import * as React from "react";
 import { Table } from "../components";
 import {Car} from "../types";
 
-const Cars = (data: Car[]): ReactElement<unknown> => {
+export type CarsProps = {
+    cars: Car[]
+}
+
+const Cars:FC<CarsProps> = (data) => {
 
     return (
         <Container maxWidth='lg'>
@@ -20,7 +24,7 @@ const Cars = (data: Car[]): ReactElement<unknown> => {
             >
             </Box>
             Cars
-            <Table car={ data }/>
+            <Table cars={ data.cars }/>
         </Container>
     )
 }
@@ -29,16 +33,15 @@ const Cars = (data: Car[]): ReactElement<unknown> => {
 export default Cars
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const res = await fetch(`http://localhost:3000/api/car`)
-    const data = await res.json()
-
-    if (!data) {
+    const cars = await res.json() as Car[]
+    if (!cars) {
         return {
             notFound: true,
         }
     }
     return {
-        props: { data }, // will be passed to the page component as props
+        props: { cars },
     }
 }

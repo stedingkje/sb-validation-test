@@ -4,7 +4,7 @@ import { Table as BasicTable, TableContainer, Paper, TableHead, TableCell, Table
 import { Person, Car, Bar } from '../../types'
 
 export type TableProps = {
-    car?: Car[]
+    cars?: Car[]
     person?: Person[]
     bar?: Bar[]
 }
@@ -13,20 +13,20 @@ export const Table = (data: TableProps): ReactElement<unknown> => {
 
     const { pathname } = useRouter();
     let tableHead: string[] = []
-    let tableData = []
+    let tableData: Car[] | Bar[] | Person[] | undefined = undefined
 
     switch (pathname.replace('/','')) {
         case 'cars':
             tableHead = ['Brand','Type','Mileage', 'Extras']
-            tableData = data?.car?.data
+            tableData = data.cars
             break;
         case 'persons':
             tableHead = ['Name', 'Age', 'Siblings', 'Metadata', 'Active']
-            tableData = data?.person?.data
+            tableData = data.person
             break;
         case 'bar':
             tableHead = ['name', 'address', 'drinks']
-            tableData = data?.bar?.data
+            tableData = data.bar
             break;
     }
 
@@ -41,7 +41,7 @@ export const Table = (data: TableProps): ReactElement<unknown> => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tableData.map((item : TableProps, index:number) => (
+                    {tableData?.map((item, index) => (
                         <TableRow
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

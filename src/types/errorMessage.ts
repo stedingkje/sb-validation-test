@@ -1,4 +1,4 @@
-export type ErrorMessages = {
+export type ErrorMessage = {
     code:string,
     expected: string,
     received: string,
@@ -6,6 +6,6 @@ export type ErrorMessages = {
     message: string
 }
 
-export type ErrorMessage = {
-    issues: ErrorMessages[]
+export type ErrorMessages = {
+    issues: ErrorMessage[]
 }

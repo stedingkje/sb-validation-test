@@ -1,10 +1,11 @@
 export type Bar = {
     name: string,
     address: string,
-    drinks: Drink[],
+    // ToDo: Proccessing in table
+    drinks?: Drink[],
 }
 
 export type Drink = {
-    beer: string[],
-    cocktail: string[],
+    beer?: string[],
+    cocktail?: string[],
 }

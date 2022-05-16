@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import {Car} from '../../types';
 
-const Data = [
+const Data: Car[] = [
   {
     brand: 'Mazda',
     type: 'MX5 NB 1.8',
@@ -25,7 +25,7 @@ const Data = [
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Car>
+  res: NextApiResponse<Car[]>
 ) {
   res
     .status(200)

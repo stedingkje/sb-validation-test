@@ -1,11 +1,15 @@
-import { ReactElement } from 'react'
+import { FC } from 'react'
 import {GetStaticProps} from 'next'
 import {Box, Container} from "@mui/material";
 import * as React from "react";
 import { Table } from "../components";
 import {Bar} from "../types";
 
-const Bar = (data: Bar[]): ReactElement<unknown> => {
+export type BarsProps = {
+    bar: Bar[]
+}
+
+const Bar:FC<BarsProps> = (data) => {
 
     return (
         <Container maxWidth='lg'>
@@ -20,7 +24,7 @@ const Bar = (data: Bar[]): ReactElement<unknown> => {
             >
             </Box>
             Bar
-            <Table bar={ data }/>
+            <Table bar={ data.bar }/>
         </Container>
     )
 }
@@ -29,16 +33,16 @@ const Bar = (data: Bar[]): ReactElement<unknown> => {
 export default Bar
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const res = await fetch(`http://localhost:3000/api/bar`)
-    const data = await res.json()
+    const bar = await res.json()
 
-    if (!data) {
+    if (!bar) {
         return {
             notFound: true,
         }
     }
     return {
-        props: { data }, // will be passed to the page component as props
+        props: { bar }, // will be passed to the page component as props
     }
 }
