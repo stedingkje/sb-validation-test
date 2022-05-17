@@ -12,6 +12,7 @@ Project details
 ## How to Use
 
 ```bash
+yarn
 yarn dev
 ```
 
