@@ -44,7 +44,7 @@ const Persons: FC<PersonsProps> = (data) => {
 export default Persons;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`http://localhost:3000/api/person`);
+  const res = await fetch(`/api/person`);
   let response:Response;
   let json = await res.json()
 

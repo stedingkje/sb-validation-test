@@ -34,7 +34,7 @@ export default Bar
 
 
 export const getStaticProps: GetStaticProps = async () => {
-    const res = await fetch(`http://localhost:3000/api/bar`)
+    const res = await fetch(`/api/bar`)
     const bar = await res.json()
 
     if (!bar) {

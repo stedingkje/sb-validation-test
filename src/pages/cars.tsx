@@ -34,7 +34,7 @@ export default Cars
 
 
 export const getStaticProps: GetStaticProps = async () => {
-    const res = await fetch(`http://localhost:3000/api/car`)
+    const res = await fetch(`/api/car`)
     const cars = await res.json() as Car[]
     if (!cars) {
         return {
